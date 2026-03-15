@@ -1,0 +1,1 @@
+{\n  "name": "Your Development Container Name",\n  "forwardPorts": [3389, 8006]   \n}
