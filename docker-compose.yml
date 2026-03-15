@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  windows-cloud:
+    image: mcr.microsoft.com/windows/servercore:ltsc2019
+    ports:
+      - "3389:3389"  # RDP
+      - "80:80"      # HTTP
+      - "443:443"    # HTTPS
+    volumes:
+      - ./data:/data
+    environment:
+      - USERNAME=your_username
+      - PASSWORD=your_password
+    tty: true
+    stdin_open: true
