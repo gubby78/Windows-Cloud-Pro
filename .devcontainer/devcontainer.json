@@ -1,0 +1,53 @@
+{
+  "name": "Windows Cloud Pro Development",
+  "image": "mcr.microsoft.com/windows/servercore:ltsc2022",
+  "features": {
+    "ghcr.io/devcontainers/features/powershell:latest": {
+      "version": "latest"
+    },
+    "ghcr.io/devcontainers/features/docker-in-docker:latest": {},
+    "ghcr.io/devcontainers/features/git:latest": {}
+  },
+  "remoteUser": "ContainerAdministrator",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-vscode.powershell",
+        "ms-vscode-remote.remote-containers",
+        "ms-vscode.remote-explorer",
+        "GitHub.copilot",
+        "ms-vscode.azure-account",
+        "eamodio.gitlens",
+        "ms-dotnettools.csharp",
+        "ms-windows-admin.servermanagertool"
+      ],
+      "settings": {
+        "terminal.integrated.defaultProfile.windows": "PowerShell",
+        "terminal.integrated.profiles.windows": {
+          "PowerShell": {
+            "source": "PowerShell",
+            "icon": "terminal-powershell"
+          }
+        },
+        "files.encoding": "utf8",
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "ms-vscode.powershell"
+      }
+    }
+  },
+  "postCreateCommand": "powershell -Command \"Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force; . 'C:/setup/Initialize-Environment.ps1'\"",
+  "containerEnv": {
+    "TERM": "xterm-256color",
+    "LANG": "en_US.UTF-8"
+  },
+  "mounts": [
+    "source=${localEnv:HOME}${localEnv:USERPROFILE}/.ssh,target=C:/Users/ContainerAdministrator/.ssh,type=bind,consistency=cached"
+  ],
+  "forwardPorts": [3000, 5000, 8000, 8080, 5432, 27017],
+  "portsAttributes": {
+    "3000": {"label": "Application", "onAutoForward": "notify"},
+    "5000": {"label": "API", "onAutoForward": "notify"},
+    "8000": {"label": "Dev Server", "onAutoForward": "notify"},
+    "8080": {"label": "Web", "onAutoForward": "notify"}
+  }
+}
